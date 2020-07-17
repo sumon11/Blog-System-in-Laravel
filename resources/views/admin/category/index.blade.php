@@ -22,6 +22,7 @@
                         <div class="header">
                             <h2>
                                 ALL CATEGORY
+                                <span class="badge bg-pink">{{$categories->count()}}</span>
                             </h2>
                             
                         </div>
@@ -32,6 +33,7 @@
                                         <tr>
                                             <th>SL No.</th>
                                             <th>Name</th>
+                                            <th>Post Count</th>
                                             <th>Slug</th>
                                             <th>Created at</th>
                                             <th>Updated at</th>
@@ -43,6 +45,7 @@
                                         <tr>
                                             <th>SL No.</th>
                                             <th>Name</th>
+                                            <th>Post Count</th>
                                             <th>Slug</th>
                                             <th>Created at</th>
                                             <th>Updated at</th>
@@ -55,6 +58,7 @@
                                         <tr>
                                             <td>{{$key+1}}</td>
                                             <td>{{$category->name}}</td>
+                                            <td>{{$category->posts->count()}}</td>
                                             <td>{{$category->slug}}</td>
                                             <td>{{$category->created_at}}</td>
                                             <td>{{$category->updated_at}}</td>

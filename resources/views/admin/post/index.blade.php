@@ -22,6 +22,7 @@
                         <div class="header">
                             <h2>
                                 ALL POSTS
+                                <span class="badge bg-pink">{{$posts->count()}}</span>
                             </h2>
                             
                         </div>
@@ -64,17 +65,17 @@
                                             <td>
                                                 @if($post->is_approved == true)
 
-                                                <span class="badge-blue">Approved</span>
+                                                <span class="badge bg-blue">Approved</span>
                                                 @else
-                                                <span class="badge-pink">Pending</span>
+                                                <span class="badge bg-pink">Pending</span>
                                                 @endif
                                             </td>
                                             <td>
                                                 @if($post->status == true)
 
-                                                <span class="badge-blue">Published</span>
+                                                <span class="badge bg-blue">Published</span>
                                                 @else
-                                                <span class="badge-pink">Pending</span>
+                                                <span class="badge bg-pink">Pending</span>
                                                 @endif
                                             </td>
                                             <td>{{$post->updated_at}}</td>
