@@ -25,7 +25,7 @@
                         
                             <div class="form-group form-float">
                                 <div class="form-line">
-                                    <input type="text" id="name" class="form-control" name = "name">
+                                    <input type="text" id="title" class="form-control" name = "title">
                                     <label class="form-label">Post Title</label>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                             </div>
 
                             <br>
-                            <a href = "{{route('tag.index')}}" class="btn btn-danger m-t-15 waves-effect">BACK</a>
+                            <a href = "{{route('post.index')}}" class="btn btn-danger m-t-15 waves-effect">BACK</a>
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
                         
                     </div>

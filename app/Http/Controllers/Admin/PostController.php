@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+
 use App\Post;
 use App\Category;
 use App\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Auth;
+
 
 class PostController extends Controller
 {
@@ -41,7 +48,48 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        $this->validate($request,[
+            'title'=>'required',
+            'image'=>'required',
+            'categories'=>'required',
+            'tags'=>'required',
+            'body'=>'required'
+        ]);
+
+        $image = $request->file('image');
+        $slug = strtolower($image);
+        /*if(isset($image)){
+            $currentDate = Carbon::now()->toDateString();
+            $imageName = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+            if(!Storage::disk('public')->exists('post')){
+                Storage::disk('public')->makeDirectory('post');
+            }
+
+            $category = Image::make($image)->resize(1600,479)->save(90);
+            Storage::disk('public')->put('post/'.$imageName,$category);
+        }else{
+            $imageName = 'default.png';
+        }
+*/      $imageName = 'default.png';
+        $post = new Post();
+        $post->user_id = Auth::user()->id;
+        $post->title = $request->title;
+        $post->slug = $slug;
+        $post->image = $imageName;
+        $post->body = $request->body;
+        if(isset($post->status)){
+            $status = true;
+        }else{
+            $status = false;
+        }
+        $post->is_approved = true;
+        $post->save();
+
+        $post->categories()->attach($request->categories);
+        $post->tags()->attach($request->tags);
+        Toastr::success("Post successfully saved",'success');
+        return redirect()->route('post.index');
+
     }
 
     /**
